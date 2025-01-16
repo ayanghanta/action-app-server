@@ -1,0 +1,22 @@
+extends base
+
+block content
+  h2 Auction Ended: #{productName}
+
+  p We want to thank you for participating in the auction for the following item:
+
+  //- Product Section
+  .product-details
+    img(src=productImage, alt="Product Image")
+    .product-info
+      p(style="font-size: 18px; font-weight: bold;") #{productName}
+      p Final Bid: 
+        strong ₹#{finalBid}
+
+  p We hope you enjoyed the experience. Stay tuned for more exciting auctions!
+
+  //- Green Contact Button
+  a.green-button(href="mailto:support@vintagevault.com") Contact Support
+
+  p If you have any questions, feel free to reach out at 
+    a(href="mailto:support@vintagevault.com") support@vintagevault.com.

@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Vintage Vault
+    include _style.pug
+  body
+    .email-container
+      //- Header
+      .header Vintage Vault
+
+      //- Content Block
+      block content
+
+      //- Footer
+      .footer
+        p You're receiving this email because you joined Vintage Vault.
+        p Need help? Contact us at 
+          a(href="mailto:support@vintagevault.com") support@vintagevault.com

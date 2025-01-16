@@ -1,0 +1,22 @@
+extends base
+
+block content
+  h2 Congratulations 🎉, #{firstName}!
+
+  p We're thrilled to inform you that you've won the auction for the following item:
+
+  //- Product Section
+  .product-details
+    img(src=productImage, alt="Product Image")
+    .product-info
+      p(style="font-size: 18px; font-weight: bold;") #{productName}
+      p Final Bid: 
+        strong ₹#{finalBid}
+
+  p To complete your purchase and claim your item, please click the button below:
+
+  //- Complete Payment Button
+  a.green-button(href=paymentUrl) Complete Payment
+
+  p If you have any questions, feel free to reach out to us at 
+    a(href="mailto:support@vintagevault.com") support@vintagevault.com.
