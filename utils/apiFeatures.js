@@ -58,4 +58,4 @@ class ApiFeatutes {
     return this;
   }
 }
-module.exports = ApiFeatutes;
+export default ApiFeatutes;

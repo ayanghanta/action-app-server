@@ -1,57 +1,48 @@
-const express = require("express");
+import express from "express";
 
-const productController = require("./../controller/productController");
-const authController = require("./../controller/authController");
+import {
+  getAllProducts,
+  aliasGetMyProducts,
+  aliasPublishProduct,
+  aliasVerifyProduct,
+  updateProduct,
+  aliasRejectProduct,
+  getProduct,
+  uploadProductImage,
+  resizeProductImage,
+  aliasUpdateProduct,
+  deleteProduct,
+  createProduct,
+} from "./../controller/productController.js";
+import { protect, restrictTo } from "./../controller/authController.js";
+
 const router = express.Router();
 
 // ALL ROUTER MUST BE PROTECTED
-router.use(authController.protect);
+router.use(protect);
 
-router
-  .route("/")
-  .get(authController.restrictTo("admin"), productController.getAllProducts);
+router.route("/").get(restrictTo("admin"), getAllProducts);
 
-router
-  .route("/getMyProducts")
-  .get(productController.aliasGetMyProducts, productController.getAllProducts);
-router
-  .route("/publishProduct/:id")
-  .patch(
-    productController.aliasPublishProduct,
-    productController.updateProduct
-  );
+router.route("/getMyProducts").get(aliasGetMyProducts, getAllProducts);
+router.route("/publishProduct/:id").patch(aliasPublishProduct, updateProduct);
 router
   .route("/verify/:id")
-  .patch(
-    authController.restrictTo("admin"),
-    productController.aliasVerifyProduct,
-    productController.updateProduct
-  );
+  .patch(restrictTo("admin"), aliasVerifyProduct, updateProduct);
 router
   .route("/reject/:id")
-  .patch(
-    authController.restrictTo("admin"),
-    productController.aliasRejectProduct,
-    productController.updateProduct
-  );
+  .patch(restrictTo("admin"), aliasRejectProduct, updateProduct);
 
-router
-  .route("/")
-  .post(
-    productController.uploadProductImage,
-    productController.resizeProductImage,
-    productController.createProduct
-  );
+router.route("/").post(uploadProductImage, resizeProductImage, createProduct);
 
 router
   .route("/:id")
-  .get(productController.getProduct)
+  .get(getProduct)
   .patch(
-    productController.uploadProductImage,
-    productController.resizeProductImage,
-    productController.aliasUpdateProduct,
-    productController.updateProduct
+    uploadProductImage,
+    resizeProductImage,
+    aliasUpdateProduct,
+    updateProduct
   )
-  .delete(productController.deleteProduct);
+  .delete(deleteProduct);
 
-module.exports = router;
+export default router;

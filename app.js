@@ -1,27 +1,25 @@
-const express = require("express");
-const morgan = require("morgan");
-const cors = require("cors");
-const helmet = require("helmet");
-const cookieParser = require("cookie-parser");
+import express from "express";
+import morgan from "morgan";
+import cors from "cors";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import auctionRouter from "./routes/auctionRoute.js";
+import productRouter from "./routes/productRoute.js";
+import userRouter from "./routes/userRoute.js";
+import addressRouter from "./routes/addressRoute.js";
+import bidDetailRouter from "./routes/bidDetailRouter.js";
+import notificationRouter from "./routes/notificationRouter.js";
+import winningRouter from "./routes/winningsRouter.js";
+import paymentRouter from "./routes/paymentRouter.js";
+import webhookRouter from "./routes/webhookRouter.js";
+
+import AppError from "./utils/AppError.js";
+import globalErrorHnadler from "./controller/errorController.js";
+import { auctionEnds } from "./schedulers/auctionScheduler.js";
 
 const app = express();
 
-const auctionRouter = require("./routes/auctionRoute");
-const productRouter = require("./routes/productRoute");
-const userRouter = require("./routes/userRoute");
-const addressRouter = require("./routes/addressRoute");
-const bidDetailRouter = require("./routes/bidDetailRouter");
-const notificationRouter = require("./routes/notificationRouter");
-const winningRouter = require("./routes/winningsRouter");
-
-const AppError = require("./utils/AppError");
-
-// GLOBAL ERROR HANDLER
-const globalErrorHnadler = require("./controller/errorController");
-
-// SCHEDULAR TASK
-const auctionSchedular = require("./schedulers/auctionScheduler");
-auctionSchedular.auctionEnds();
+auctionEnds();
 
 // GLOBAL MIDDLEWARE
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
@@ -47,8 +45,13 @@ app.use(
 app.use(express.static("public"));
 
 // BODY PERSER
-app.use(express.json());
+app.use(
+  "/api/v1/webhook",
+  express.raw({ type: "application/json" }),
+  webhookRouter
+);
 app.use(cookieParser());
+app.use(express.json());
 
 // ROUTES
 
@@ -59,6 +62,7 @@ app.use("/api/v1/address", addressRouter);
 app.use("/api/v1/bids", bidDetailRouter);
 app.use("/api/v1/notifications", notificationRouter);
 app.use("/api/v1/winnings", winningRouter);
+app.use("/api/v1/payments", paymentRouter);
 
 app.use("*", (req, res, next) => {
   next(new AppError("This resource is not exist in the server", 404));
@@ -66,4 +70,4 @@ app.use("*", (req, res, next) => {
 
 app.use(globalErrorHnadler);
 
-module.exports = app;
+export default app;

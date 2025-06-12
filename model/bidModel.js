@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const bidSchema = new mongoose.Schema({
   productId: {
@@ -34,4 +34,4 @@ bidSchema.post("save", async function (doc) {
 });
 const Bid = mongoose.model("Bid", bidSchema);
 
-module.exports = Bid;
+export default Bid;

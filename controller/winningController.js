@@ -1,7 +1,7 @@
-const Bid = require("./../model/bidModel");
-const AppError = require("./../utils/AppError");
+import Bid from "./../model/bidModel.js";
+import AppError from "./../utils/AppError.js";
 
-exports.getMyWinnings = async (req, res, next) => {
+export const getMyWinnings = async (req, res, next) => {
   try {
     const winnings = await Bid.find({
       bidder: req.user._id,

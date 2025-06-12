@@ -1,10 +1,10 @@
-const Product = require("./../model/productModel");
-const Bid = require("./../model/bidModel");
-const Notification = require("./../model/notificationModel");
-const cron = require("node-cron");
-const Email = require("./../utils/email");
+import Product from "./../model/productModel.js";
+import Bid from "./../model/bidModel.js";
+import Notification from "./../model/notificationModel.js";
+import cron from "node-cron";
+import Email from "./../utils/email.js";
 
-exports.auctionEnds = () => {
+export const auctionEnds = () => {
   //  RUN IN EVERY MINUTS
   cron.schedule("* * * * *", async () => {
     try {

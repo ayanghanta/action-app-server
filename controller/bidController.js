@@ -1,9 +1,9 @@
-const User = require("./../model/userModel");
-const Product = require("./../model/productModel");
-const Bid = require("./../model/bidModel");
-const { calcMinBidAmount } = require("./../utils/helper");
+import User from "./../model/userModel.js";
+import Product from "./../model/productModel.js";
+import Bid from "./../model/bidModel.js";
+import { calcMinBidAmount } from "./../utils/helper.js";
 
-exports.createNewBid = async (socket, data) => {
+export const createNewBid = async (socket, data) => {
   try {
     const { productId, currnetBidData, newBidData } = data;
     // let minBidAmmount;

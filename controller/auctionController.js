@@ -1,8 +1,8 @@
-const Product = require("./../model/productModel");
-const apiFeatures = require("./../utils/apiFeatures");
+import Product from "./../model/productModel.js";
+import apiFeatures from "./../utils/apiFeatures.js";
 
 //NOTEME:  all the product that has verified and publish for auction by the seller are classified as auctions product or auctions
-exports.getAllAuctions = async (req, res) => {
+export const getAllAuctions = async (req, res) => {
   const now = new Date();
   try {
     const auctionQuery = new apiFeatures(
@@ -45,7 +45,7 @@ exports.getAllAuctions = async (req, res) => {
     });
   }
 };
-exports.getAuction = async (req, res) => {
+export const getAuction = async (req, res) => {
   try {
     const auction = await Product.findById(req.params.id).populate({
       path: "currentBidDeails",

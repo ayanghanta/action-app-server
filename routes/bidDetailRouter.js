@@ -1,12 +1,15 @@
-const express = require("express");
-const bidDetailController = require("./../controller/bidDetailController");
-const authController = require("./../controller/authController");
+import express from "express";
+import {
+  getMyBids,
+  getBidDetail,
+} from "./../controller/bidDetailController.js";
+import { protect } from "./../controller/authController.js";
 
 const router = express.Router();
 
-router.use(authController.protect);
+router.use(protect);
 
-router.route("/getMyBids").get(bidDetailController.getMyBids);
-router.route("/:bidId").get(bidDetailController.getBidDetail);
+router.route("/getMyBids").get(getMyBids);
+router.route("/:bidId").get(getBidDetail);
 
-module.exports = router;
+export default router;

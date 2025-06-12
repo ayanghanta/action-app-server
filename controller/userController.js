@@ -1,8 +1,9 @@
-const multer = require("multer");
-const sharp = require("sharp");
-const User = require("./../model/userModel");
-const Product = require("./../model/productModel");
-const AppError = require("./../utils/AppError");
+import multer from "multer";
+import sharp from "sharp";
+
+import User from "./../model/userModel.js";
+import Product from "./../model/productModel.js";
+import AppError from "./../utils/AppError.js";
 
 // Store image in a memory
 const multerStorage = multer.memoryStorage();
@@ -19,9 +20,9 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
-exports.uploadUserPhoto = upload.single("photo");
+export const uploadUserPhoto = upload.single("photo");
 
-exports.resizeUserPhoto = async (req, res, next) => {
+export const resizeUserPhoto = async (req, res, next) => {
   try {
     if (!req.file) return next();
 
@@ -38,7 +39,7 @@ exports.resizeUserPhoto = async (req, res, next) => {
   }
 };
 
-exports.getAllUsers = async (req, res, next) => {
+export const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
     res.status(200).json({
@@ -62,7 +63,7 @@ const filterReqBody = (obj) => {
   return filteredObj;
 };
 
-exports.updateMe = async (req, res, next) => {
+export const updateMe = async (req, res, next) => {
   try {
     // 1. if use try to update the password send error
     if (req.body.password || req.body.confirmPassword)

@@ -1,8 +1,8 @@
-const Notification = require("./../model/notificationModel");
-const User = require("./../model/userModel");
-const AppError = require("./../utils/AppError");
+import Notification from "./../model/notificationModel.js";
+import User from "./../model/userModel.js";
+import AppError from "./../utils/AppError.js";
 
-exports.getNotifications = async (req, res, next) => {
+export const getNotifications = async (req, res, next) => {
   try {
     const notifications = await Notification.find({
       user: req.user._id,
@@ -21,7 +21,7 @@ exports.getNotifications = async (req, res, next) => {
   }
 };
 
-exports.markRead = async (req, res, next) => {
+export const markRead = async (req, res, next) => {
   try {
     await Notification.findByIdAndUpdate(req.params.id, {
       isRead: true,

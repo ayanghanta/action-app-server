@@ -1,21 +1,20 @@
-const express = require("express");
-const addressController = require("./../controller/addressController");
-const authController = require("./../controller/authController");
+import express from "express";
+import {
+  getAllAddress,
+  createAddress,
+  getAddress,
+  deleteAddress,
+  updateAddress,
+} from "./../controller/addressController.js";
+import { protect } from "./../controller/authController.js";
 
 const router = express.Router();
 
 // ALL THE ROUTES MUST BE PROTECTED
-router.use(authController.protect);
+router.use(protect);
 
-router
-  .route("/")
-  .get(addressController.getAllAddress)
-  .post(addressController.createAddress);
+router.route("/").get(getAllAddress).post(createAddress);
 
-router
-  .route("/:id")
-  .get(addressController.getAddress)
-  .delete(addressController.deleteAddress)
-  .patch(addressController.updateAddress);
+router.route("/:id").get(getAddress).delete(deleteAddress).patch(updateAddress);
 
-module.exports = router;
+export default router;

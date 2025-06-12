@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken");
-const User = require("./../model/userModel");
-const cookie = require("cookie");
+import jwt from "jsonwebtoken";
+import User from "./../model/userModel.js";
+import cookie from "cookie";
 
-exports.protect = async (socket, next) => {
+export const protect = async (socket, next) => {
   try {
     socket.emit("hello", { hello: 1 });
     let jwtToken;

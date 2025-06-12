@@ -1,6 +1,6 @@
-const { Server } = require("socket.io");
-const authControllerSocket = require("./../controller/authControllerSocket");
-const bidController = require("./../controller/bidController");
+import { Server } from "socket.io";
+import { protect } from "./../controller/authControllerSocket.js";
+import { createNewBid } from "./../controller/bidController.js";
 
 function handleEvents(socket) {
   console.log("A user connected");
@@ -17,7 +17,7 @@ function handleEvents(socket) {
         message: "Login to place a bid",
       });
     }
-    await bidController.createNewBid(socket, data);
+    await createNewBid(socket, data);
   });
 }
 
@@ -30,7 +30,7 @@ function initializeWebSocket(server) {
   });
 
   // Middleware
-  io.use(authControllerSocket.protect);
+  io.use(protect);
   // io.use(errorHandler);
 
   io.on("connection", (socket) => {
@@ -41,4 +41,4 @@ function initializeWebSocket(server) {
   return io;
 }
 
-module.exports = initializeWebSocket;
+export default initializeWebSocket;

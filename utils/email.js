@@ -1,8 +1,8 @@
-const nodemailer = require("nodemailer");
-const pug = require("pug");
-const { htmlToText } = require("html-to-text");
+import nodemailer from "nodemailer";
+import pug from "pug";
+import { htmlToText } from "html-to-text";
 
-module.exports = class Email {
+export default class Email {
   constructor(user, url = "") {
     this.to = user.email;
     this.firstName = user.fullName.split(" ").at(0);
@@ -74,4 +74,4 @@ module.exports = class Email {
   async resetPassword() {
     await this.send("resetPassword", "Reset Your Password - Vintage Vault");
   }
-};
+}

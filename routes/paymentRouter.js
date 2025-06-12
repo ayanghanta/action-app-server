@@ -1,12 +1,10 @@
 import express from "express";
-
 import { protect } from "./../controller/authController.js";
-import { getMyWinnings } from "./../controller/winningController.js";
+import { processPayment } from "./../controller/paymnetController.js";
 
 const router = express.Router();
 
 router.use(protect);
-
-router.route("/").get(getMyWinnings);
+router.route("/").post(processPayment);
 
 export default router;

@@ -1,13 +1,15 @@
-const fs = require("fs");
-const path = require("path");
-const Product = require("./../model/productModel");
-const multer = require("multer");
-const sharp = require("sharp");
-const { PDFDocument } = require("pdf-lib");
-const { differenceInDays } = require("date-fns");
+import fs from "fs";
+import path from "path";
+import multer from "multer";
+import sharp from "sharp";
 
-const ApiFeatutes = require("./../utils/apiFeatures");
-const AppError = require("./../utils/AppError");
+import Product from "./../model/productModel.js";
+
+import { PDFDocument } from "pdf-lib";
+import { differenceInDays } from "date-fns";
+
+import ApiFeatures from "./../utils/apiFeatures.js";
+import AppError from "./../utils/AppError.js";
 
 const multerStorage = multer.memoryStorage();
 
@@ -27,7 +29,7 @@ const upload = multer({
   fileFilter: multerImageFilter,
 });
 
-exports.uploadProductImage = upload.fields([
+export const uploadProductImage = upload.fields([
   {
     name: "coverImage",
     maxCount: 1,
@@ -42,7 +44,7 @@ exports.uploadProductImage = upload.fields([
   },
 ]);
 
-exports.resizeProductImage = async (req, res, next) => {
+export const resizeProductImage = async (req, res, next) => {
   try {
     if (!req.files) return next();
 
@@ -90,7 +92,7 @@ exports.resizeProductImage = async (req, res, next) => {
 };
 
 // CONTROLLERS
-exports.aliasGetMyProducts = (req, res, next) => {
+export const aliasGetMyProducts = (req, res, next) => {
   req.query.seller = req.user._id;
   req.query.select =
     "coverImage,basePrice,title,status,published,auctionsStartsAt,auctionDuration,auctionsEndsAt,rejectionCouse isAuctionEnds";
@@ -98,7 +100,7 @@ exports.aliasGetMyProducts = (req, res, next) => {
   next();
 };
 
-exports.getAllProducts = async (req, res, next) => {
+export const getAllProducts = async (req, res, next) => {
   try {
     const productsQuery = new ApiFeatutes(Product.find(), req.query)
       .filter()
@@ -120,7 +122,7 @@ exports.getAllProducts = async (req, res, next) => {
   }
 };
 
-exports.getProduct = async (req, res) => {
+export const getProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate({
       path: "seller",
@@ -142,7 +144,7 @@ exports.getProduct = async (req, res) => {
   }
 };
 
-exports.createProduct = async (req, res, next) => {
+export const createProduct = async (req, res, next) => {
   try {
     // SET THE SELLER ID FROM AUTH TOKEN
     const newProduct = await Product.create({
@@ -161,7 +163,7 @@ exports.createProduct = async (req, res, next) => {
   }
 };
 
-exports.aliasUpdateProduct = (req, res, next) => {
+export const aliasUpdateProduct = (req, res, next) => {
   // * THIS IS IMPORTENT: WHEN USER UPDATES THE PRODUCT IT AUTOMATICALLY GONING TO 'PENDING' STATUS --- SO USER JUST CAN CON VERIFY THEIR PRODUCT ON THEIRE WON AND ALSO USER CAN NOT CHAGE SELLER OF THIS PRODYCT
   const now = new Date();
   const updatedBody = {
@@ -186,7 +188,7 @@ exports.aliasUpdateProduct = (req, res, next) => {
   next();
 };
 
-exports.aliasPublishProduct = (req, res, next) => {
+export const aliasPublishProduct = (req, res, next) => {
   const { auctionsStartsAt, auctionsEndsAt } = req.body;
   const publishBody = {
     auctionsStartsAt,
@@ -206,7 +208,7 @@ exports.aliasPublishProduct = (req, res, next) => {
 
   next();
 };
-exports.aliasVerifyProduct = (req, res, next) => {
+export const aliasVerifyProduct = (req, res, next) => {
   req.filter = {
     _id: req.params.id,
   };
@@ -216,7 +218,7 @@ exports.aliasVerifyProduct = (req, res, next) => {
   };
   next();
 };
-exports.aliasRejectProduct = (req, res, next) => {
+export const aliasRejectProduct = (req, res, next) => {
   req.filter = {
     _id: req.params.id,
   };
@@ -228,7 +230,7 @@ exports.aliasRejectProduct = (req, res, next) => {
   next();
 };
 
-exports.updateProduct = async (req, res, next) => {
+export const updateProduct = async (req, res, next) => {
   try {
     const product = await Product.findOneAndUpdate(req.filter, req.body, {
       new: true,
@@ -254,7 +256,7 @@ exports.updateProduct = async (req, res, next) => {
   }
 };
 
-exports.deleteProduct = async (req, res, next) => {
+export const deleteProduct = async (req, res, next) => {
   try {
     // 1. get the product and check if the seller is same as user id
     const product = await Product.findOneAndDelete({

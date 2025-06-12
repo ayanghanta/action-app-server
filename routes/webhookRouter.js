@@ -1,12 +1,9 @@
 import express from "express";
-
 import { protect } from "./../controller/authController.js";
-import { getMyWinnings } from "./../controller/winningController.js";
+import { controllWebhook } from "./../controller/webhookController.js";
 
 const router = express.Router();
 
-router.use(protect);
-
-router.route("/").get(getMyWinnings);
+router.route("/").post(controllWebhook);
 
 export default router;

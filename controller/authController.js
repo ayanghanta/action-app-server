@@ -1,10 +1,9 @@
-const User = require("./../model/userModel");
-const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
+import User from "./../model/userModel.js";
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
-const AppError = require("./../utils/AppError");
-const Email = require("../utils/email");
-
+import AppError from "./../utils/AppError.js";
+import Email from "./../utils/email.js";
 const signJwt = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -39,7 +38,7 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
-exports.signup = async (req, res, next) => {
+export const signup = async (req, res, next) => {
   try {
     const user = await User.create({ ...req.body, role: "user" });
 
@@ -60,7 +59,7 @@ exports.signup = async (req, res, next) => {
   }
 };
 
-exports.login = async (req, res, next) => {
+export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     // 1. chek if email and passowrd are present or not
@@ -83,7 +82,7 @@ exports.login = async (req, res, next) => {
   }
 };
 
-exports.forgotPassword = async (req, res, next) => {
+export const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
     // 1.chacek if the email presset in request
@@ -118,7 +117,7 @@ exports.forgotPassword = async (req, res, next) => {
   }
 };
 
-exports.resetPassword = async (req, res, next) => {
+export const resetPassword = async (req, res, next) => {
   try {
     const { password, confirmPassword } = req.body;
     // 1. Check both password is present
@@ -161,7 +160,7 @@ exports.resetPassword = async (req, res, next) => {
   }
 };
 
-exports.updatePassword = async (req, res, next) => {
+export const updatePassword = async (req, res, next) => {
   try {
     const { currentPassword, password, confirmPassword } = req.body;
     // 1. check if the password and confirm password and current exist
@@ -197,7 +196,7 @@ exports.updatePassword = async (req, res, next) => {
   }
 };
 
-exports.protect = async (req, res, next) => {
+export const protect = async (req, res, next) => {
   try {
     // 1.Check if there is any token in header / cookie
     const authHeader = req.headers.authorization?.startsWith("Bearer");
@@ -234,7 +233,7 @@ exports.protect = async (req, res, next) => {
   }
 };
 
-exports.restrictTo = (...roles) => {
+export const restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return next(
@@ -256,7 +255,7 @@ const sendUnAuthToken = (res) => {
   });
 };
 
-exports.isAuthenticated = async (req, res) => {
+export const isAuthenticated = async (req, res) => {
   try {
     const authHeader = req.headers.authorization?.startsWith("Bearer");
 
@@ -290,8 +289,8 @@ exports.isAuthenticated = async (req, res) => {
   }
 };
 
-exports.logout = async (req, res, next) => {
-  cookieOption2 = {
+export const logout = async (req, res, next) => {
+  const cookieOption2 = {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
     // sameSite: "None",

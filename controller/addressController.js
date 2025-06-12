@@ -1,8 +1,8 @@
-const Address = require("./../model/addressModel");
-const User = require("./../model/userModel");
-const AppError = require("./../utils/AppError");
+import Address from "./../model/addressModel.js";
+import User from "./../model/userModel.js";
+import AppError from "./../utils/AppError.js";
 
-exports.createAddress = async (req, res, next) => {
+export const createAddress = async (req, res, next) => {
   try {
     // 1. create new address
     const newAddress = await Address.create(req.body);
@@ -27,7 +27,7 @@ exports.createAddress = async (req, res, next) => {
   }
 };
 
-exports.updateAddress = async (req, res, next) => {
+export const updateAddress = async (req, res, next) => {
   try {
     // 1. update the addrres by id
     const address = await Address.findByIdAndUpdate(req.params.id, req.body, {
@@ -45,7 +45,7 @@ exports.updateAddress = async (req, res, next) => {
   }
 };
 
-exports.deleteAddress = async (req, res, next) => {
+export const deleteAddress = async (req, res, next) => {
   try {
     // 1. delete the addrres by id
     await Address.findByIdAndDelete(req.params.id);
@@ -64,6 +64,6 @@ exports.deleteAddress = async (req, res, next) => {
     next(new AppError(err.message, 500));
   }
 };
-exports.getAddress = async (req, res, next) => {};
+export const getAddress = async (req, res, next) => {};
 
-exports.getAllAddress = async (req, res, next) => {};
+export const getAllAddress = async (req, res, next) => {};

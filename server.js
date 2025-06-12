@@ -1,10 +1,12 @@
-const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" });
-const app = require("./app");
-const mongoose = require("mongoose");
-const http = require("http");
-const initializeWebSocket = require("./sockets/socket");
+import "./config.js";
 
+import mongoose from "mongoose";
+import http from "http";
+
+import app from "./app.js";
+import initializeWebSocket from "./sockets/socket.js";
+
+// Load environment variables
 const PORT = process.env.PORT || 3000;
 
 const CONNECTION_STRING = process.env.DATABASE.replace(

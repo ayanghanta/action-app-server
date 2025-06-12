@@ -1,12 +1,15 @@
-const express = require("express");
-const notificationController = require("./../controller/notificationController");
-const authController = require("./../controller/authController");
+import express from "express";
+import {
+  getNotifications,
+  markRead,
+} from "./../controller/notificationController.js";
+import { protect } from "./../controller/authController.js";
 
 const router = express.Router();
 
-router.use(authController.protect);
+router.use(protect);
 
-router.route("/").get(notificationController.getNotifications);
-router.route("/:id").patch(notificationController.markRead);
+router.route("/").get(getNotifications);
+router.route("/:id").patch(markRead);
 
-module.exports = router;
+export default router;

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { compareAsc } = require("date-fns");
+import mongoose from "mongoose";
+import { compareAsc } from "date-fns";
 
 const productSchema = new mongoose.Schema(
   {
@@ -131,6 +131,10 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    plasedOrder: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -148,4 +152,4 @@ productSchema.virtual("isLive").get(function () {
 
 const Product = mongoose.model("Product", productSchema);
 
-module.exports = Product;
+export default Product;

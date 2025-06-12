@@ -1,5 +1,8 @@
-const express = require("express");
-const auctionController = require("./../controller/auctionController");
+import express from "express";
+import {
+  getAllAuctions,
+  getAuction,
+} from "./../controller/auctionController.js";
 
 const router = express.Router();
 
@@ -7,7 +10,7 @@ const router = express.Router();
 //   .route("/live-auctions")
 //   .get(auctionController.aliasLiveAuctions, auctionController.getAllAuctions);
 
-router.route("/").get(auctionController.getAllAuctions);
-router.route("/:id").get(auctionController.getAuction);
+router.route("/").get(getAllAuctions);
+router.route("/:id").get(getAuction);
 
-module.exports = router;
+export default router;

@@ -1,7 +1,7 @@
-const AppError = require("./../utils/AppError");
-const Bid = require("./../model/bidModel");
+import AppError from "./../utils/AppError.js";
+import Bid from "./../model/bidModel.js";
 
-exports.getBidDetail = async (req, res, next) => {
+export const getBidDetail = async (req, res, next) => {
   try {
     const bid = await Bid.findById(req.params.bidId).populate({
       path: "bidder",
@@ -20,7 +20,7 @@ exports.getBidDetail = async (req, res, next) => {
     next(new AppError(err.message, 400));
   }
 };
-exports.getMyBids = async (req, res, next) => {
+export const getMyBids = async (req, res, next) => {
   try {
     const bids = await Bid.aggregate([
       {
