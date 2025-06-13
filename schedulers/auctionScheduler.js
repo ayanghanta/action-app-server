@@ -23,7 +23,6 @@ export const auctionEnds = () => {
             select: "fullName email",
           },
         });
-      console.log(endAuctions);
       endAuctions.forEach(async (auction) => {
         auction.isAuctionEnds = true;
         await auction.save();

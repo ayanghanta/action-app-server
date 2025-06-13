@@ -293,7 +293,7 @@ export const logout = async (req, res, next) => {
   const cookieOption2 = {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
-    // sameSite: "None",
+    sameSite: "None",
   };
   if (process.env.NODE_ENV === "production") cookieOption2.secure = true;
   res.cookie("jwt", "loggedout", cookieOption2);

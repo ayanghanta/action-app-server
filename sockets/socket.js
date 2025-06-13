@@ -3,7 +3,7 @@ import { protect } from "./../controller/authControllerSocket.js";
 import { createNewBid } from "./../controller/bidController.js";
 
 function handleEvents(socket) {
-  console.log("A user connected");
+  // console.log("A user connected");
 
   socket.on("joinRoom", (productId) => {
     socket.join(productId);
