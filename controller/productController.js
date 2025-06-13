@@ -105,8 +105,8 @@ export const getAllProducts = async (req, res, next) => {
     const productsQuery = new ApiFeatures(Product.find(), req.query)
       .filter()
       .sorting()
-      .limitingFields()
-      .paginating();
+      .limitingFields();
+    // .paginating();
 
     const products = await productsQuery.query;
 
