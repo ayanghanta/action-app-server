@@ -21,7 +21,11 @@ export const getAllAuctions = async (req, res) => {
     const auctions = await auctionQuery.query;
 
     const totalDoc = await new apiFeatures(
-      Product.find({ verified: true, published: true }),
+      Product.find({
+        verified: true,
+        published: true,
+        auctionsEndsAt: { $gte: now },
+      }),
       req.query
     )
       .filter()

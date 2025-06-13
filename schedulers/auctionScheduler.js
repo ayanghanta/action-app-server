@@ -2,7 +2,7 @@ import Product from "./../model/productModel.js";
 import Bid from "./../model/bidModel.js";
 import Notification from "./../model/notificationModel.js";
 import cron from "node-cron";
-import Email from "./../utils/email.js";
+// import Email from "./../utils/email.js";
 
 export const auctionEnds = () => {
   //  RUN IN EVERY MINUTS
@@ -23,7 +23,7 @@ export const auctionEnds = () => {
             select: "fullName email",
           },
         });
-
+      console.log(endAuctions);
       endAuctions.forEach(async (auction) => {
         auction.isAuctionEnds = true;
         await auction.save();
@@ -45,11 +45,11 @@ export const auctionEnds = () => {
           type: "auctionEnd",
         });
 
-        new Email(auction.seller).auctionEndMail(
-          auction.title,
-          leatestPrice,
-          imageUrl
-        );
+        // new Email(auction.seller).auctionEndMail(
+        //   auction.title,
+        //   leatestPrice,
+        //   imageUrl
+        // );
 
         // IF NO BIDDER OF THE PRODUCT THE RETURN
         if (!auction.currentBidDeails) return;
@@ -71,12 +71,14 @@ export const auctionEnds = () => {
         });
 
         // 3. SEND EMAIL TO THE WINNING BID VIA EMAIL TO WINNER
-        new Email(auction.currentBidDeails.bidder).sendWinningMail(
-          auction.title,
-          leatestPrice,
-          imageUrl
-        );
+        // new Email(auction.currentBidDeails.bidder).sendWinningMail(
+        //   auction.title,
+        //   leatestPrice,
+        //   imageUrl
+        // );
       });
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   });
 };

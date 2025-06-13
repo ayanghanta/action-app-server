@@ -102,7 +102,7 @@ export const aliasGetMyProducts = (req, res, next) => {
 
 export const getAllProducts = async (req, res, next) => {
   try {
-    const productsQuery = new ApiFeatutes(Product.find(), req.query)
+    const productsQuery = new ApiFeatures(Product.find(), req.query)
       .filter()
       .sorting()
       .limitingFields()
@@ -177,7 +177,11 @@ export const aliasUpdateProduct = (req, res, next) => {
   req.filter = {
     _id: req.params.id,
     seller: req.user._id,
-    auctionsStartsAt: { $gt: now },
+    $or: [
+      { auctionsStartsAt: { $gt: now } },
+      { auctionsStartsAt: { $exists: false } },
+      { auctionsStartsAt: null },
+    ],
     isAuctionEnds: false,
 
     // status: { $ne: "verified" },

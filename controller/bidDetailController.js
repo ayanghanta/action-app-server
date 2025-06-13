@@ -36,6 +36,7 @@ export const getMyBids = async (req, res, next) => {
           leatestBidAt: { $first: "$biddingAt" },
           myLatestBid: { $first: "$bidAmount" },
           bidStatus: { $first: "$status" },
+          bidderId: { $first: "$bidder" },
         },
       },
       {

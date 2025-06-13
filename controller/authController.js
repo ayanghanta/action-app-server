@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
 import AppError from "./../utils/AppError.js";
-import Email from "./../utils/email.js";
+// import Email from "./../utils/email.js";
 const signJwt = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -45,7 +45,7 @@ export const signup = async (req, res, next) => {
     const url = `${process.env.FORNT_END_URL}`;
 
     createSendToken(user, 201, res);
-    await new Email(user, url).sendWelcome();
+    // await new Email(user, url).sendWelcome();
   } catch (err) {
     console.log(err);
     let errMessage;
@@ -100,7 +100,7 @@ export const forgotPassword = async (req, res, next) => {
     try {
       const resetLink = `${process.env.FORNT_END_URL}/api/v1/users/${resetToken}`;
 
-      await new Email.resetPassword(user, resetLink);
+      // await new Email.resetPassword(user, resetLink);
     } catch (err) {
       return next(
         new AppError("There is a problem to send email, try agin latter")

@@ -135,6 +135,10 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    orderId: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Order",
+    },
   },
   {
     toJSON: { virtuals: true },

@@ -3,6 +3,8 @@ import Order from "../model/orderModel.js";
 import Product from "../model/productModel.js";
 
 import AppError from "../utils/AppError.js";
+import { calcDeliveryDate } from "../utils/helper.js";
+import Address from "../model/addressModel.js";
 
 const paddle = new Paddle(process.env.PADDLE_SECRET_KEY, {
   environment: Environment.sandbox,
@@ -42,20 +44,28 @@ export const controllWebhook = async (req, res, next) => {
         console.log(`💳 Transaction paid: ${eventData.data.id}`);
         // Optional: payment succeeded but still processing
         const transactionId = eventData.data.id;
-        const totalAmount = eventData.data.details.totals.grandTotal;
+        const totalAmount = +eventData.data.details.totals.grandTotal / 100;
         const { userId, addressId, productId } = eventData.data.customData;
 
+        const addressDoc = await Address.findById(addressId);
+        const address = addressDoc.toObject();
+        const deliveryDate = calcDeliveryDate();
+
         // 1. create a order
-        const order = new Order({
+        const order = await Order.create({
           productId,
           transactionId,
           buyerId: userId,
-          addressId,
+          address,
           finalAmout: totalAmount,
+          deliveryDate,
         });
-        console.log(order);
 
         // 2. update the product as the plce order=true
+        await Product.findByIdAndUpdate(productId, {
+          plasedOrder: true,
+          orderId: order._id,
+        });
 
         break;
 

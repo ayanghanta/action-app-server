@@ -12,6 +12,7 @@ import notificationRouter from "./routes/notificationRouter.js";
 import winningRouter from "./routes/winningsRouter.js";
 import paymentRouter from "./routes/paymentRouter.js";
 import webhookRouter from "./routes/webhookRouter.js";
+import orderRouter from "./routes/orderRouter.js";
 
 import AppError from "./utils/AppError.js";
 import globalErrorHnadler from "./controller/errorController.js";
@@ -63,6 +64,7 @@ app.use("/api/v1/bids", bidDetailRouter);
 app.use("/api/v1/notifications", notificationRouter);
 app.use("/api/v1/winnings", winningRouter);
 app.use("/api/v1/payments", paymentRouter);
+app.use("/api/v1/orders", orderRouter);
 
 app.use("*", (req, res, next) => {
   next(new AppError("This resource is not exist in the server", 404));
