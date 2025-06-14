@@ -1,0 +1,159 @@
+[
+  {
+    "_id": "6372cd89450ae4662da29dff",
+    "fullName": "Wrishita Mal",
+    "password": "admin1234",
+    "confirmPassword": "admin1234",
+    "email": "admin@gmail.com"
+  },
+  {
+    "_id": "6372cd89450ae4662da29df1",
+    "fullName": "Ayan Ghanta",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "test7@gmail.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a111"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29df2",
+    "fullName": "Wrishita Mal",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "rishi@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a111", "64ecf762ed7e4a86b3e7a112"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29df3",
+    "fullName": "Amit Ghosh",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "amit@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a113"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29df4",
+    "fullName": "Kavya Nair",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "kavya@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a114"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29df5",
+    "fullName": "Rohan Sharma",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "rohan@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a116", "64ecf762ed7e4a86b3e7a115"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29df6",
+    "fullName": "Neha Agarwal",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "neha@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a117"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29df7",
+    "fullName": "Arjun Das",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "arjun@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a118"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29df8",
+    "fullName": "Ravi Reddy",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "ravi@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a119"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29df9",
+    "fullName": "Swati Mishra",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "swati@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a120"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29dfa",
+    "fullName": "Vikram Singh",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "vikram@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a121"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29dfb",
+    "fullName": "Priya Gupta",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "priya@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a122"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29dfc",
+    "fullName": "Abhishek Sen",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "abhishek@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a123"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29dfd",
+    "fullName": "Sneha Das",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "sneha@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a124"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29dfe",
+    "fullName": "Manoj Thakur",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "manoj@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a125", "64ecf762ed7e4a86b3e7a120"]
+  },
+
+  {
+    "_id": "6372cd89450ae4662da29e00",
+    "fullName": "Ishaan Mehta",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "ishaan@example.com"
+  },
+  {
+    "_id": "6372cd89450ae4662da29e01",
+    "fullName": "Meera Iyer",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "meera@example.com"
+  },
+  {
+    "_id": "6372cd89450ae4662da29e02",
+    "fullName": "Rohan Verma",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "rohanv@example.com"
+  },
+  {
+    "_id": "6372cd89450ae4662da29e03",
+    "fullName": "Ritika Bhatia",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "ritika@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a119"]
+  },
+  {
+    "_id": "6372cd89450ae4662da29e04",
+    "fullName": "Vishal Chauhan",
+    "password": "test1234",
+    "confirmPassword": "test1234",
+    "email": "vishal@example.com",
+    "addresses": ["64ecf762ed7e4a86b3e7a117"]
+  }
+]
