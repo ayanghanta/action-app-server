@@ -189,7 +189,10 @@
     "summary": "A very old and rare Buddha statue, made from bronze. This item is an exquisite representation of ancient craftsmanship, believed to be over a century old.",
     "description": "This rare Buddha statue is an exceptional piece of ancient craftsmanship. Made from bronze, this statue showcases delicate details in the depiction of Buddha’s robes and serene expression. It’s believed to be over 100 years old, passed down through generations in Buddhist temples. The piece carries both spiritual and artistic value, making it a prized possession for art collectors and spiritual practitioners alike. Its age is evident in the subtle patina that has formed over time, enhancing its antique appeal.",
     "coverImage": "vintage-stac.jpg",
-    "otherImages": [],
+    "otherImages": [
+      "Vintage-Buddha-Statue-3.jpeg",
+      "Vintage-Buddha-Statue-2.jpeg"
+    ],
     "basePrice": 10000,
     "originCountry": "India",
     "timePeriod": "Early 20th Century",
@@ -300,7 +303,7 @@
     "summary": "A well-preserved 1940s retro typewriter, still functional. This typewriter is a great collector’s item, adding vintage charm to any workspace.",
     "description": "This retro typewriter from the 1940s is a perfect example of mid-20th-century office equipment. It remains in working condition and has been carefully preserved over the years. The typewriter’s keys produce a satisfying click with each press, bringing a sense of nostalgia to any workspace. Whether you want to use it for typing or as a decorative piece, this typewriter is a timeless addition to any collection.",
     "coverImage": "retro-typewriter.jpg",
-    "otherImages": [],
+    "otherImages": ["Retro-Typewriter-3.jpeg", "Retro-Typewriter-2.jpeg"],
     "basePrice": 14500,
     "originCountry": "UK",
     "timePeriod": "1940s",
