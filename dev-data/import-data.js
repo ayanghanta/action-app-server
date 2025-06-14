@@ -8,6 +8,8 @@ import Product from "./../model/productModel.js";
 import User from "./../model/userModel.js";
 import Address from "./../model/addressModel.js";
 import Bid from "./../model/bidModel.js";
+import Notification from "../model/notificationModel.js";
+import Order from "../model/orderModel.js";
 
 import { differenceInDays } from "date-fns";
 
@@ -97,6 +99,10 @@ const deleteData = async () => {
 
     await Address.deleteMany();
     await Bid.deleteMany();
+
+    await Order.deleteMany();
+
+    await Notification.deleteMany();
 
     console.log("DATA deleted 🚮");
   } catch (err) {
