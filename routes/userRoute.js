@@ -15,6 +15,7 @@ import {
   resizeUserPhoto,
   updateMe,
   getAllUsers,
+  getUser,
 } from "./../controller/userController.js";
 
 const router = express.Router();
@@ -22,10 +23,13 @@ const router = express.Router();
 router.route("/signup").post(signup);
 router.route("/login").post(login);
 router.route("/logout").get(logout);
+
 router.route("/isAuthenticated").get(isAuthenticated);
 
 router.route("/forgotPassword").patch(forgotPassword);
 router.route("/resetPassword/:resetToken").patch(resetPassword);
+
+router.route("/getUser/:userId").get(getUser);
 
 // UNDER THIS ALL ROUTES ARE PROTECTED
 

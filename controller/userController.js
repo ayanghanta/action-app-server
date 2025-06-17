@@ -93,3 +93,25 @@ export const updateMe = async (req, res, next) => {
     next(new AppError(err.message));
   }
 };
+
+export const getUser = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    console.log(userId);
+    // 1. if use try to update the password send error
+    if (!userId) return next(new AppError("no user id", 404));
+    // 2. get the current user and update
+    const user = await User.findById(userId).select("fullName photo");
+
+
+    // 3. send responce
+    res.status(200).json({
+      ok: true,
+      data: {
+        user,
+      },
+    });
+  } catch (err) {
+    next(new AppError(err.message));
+  }
+};

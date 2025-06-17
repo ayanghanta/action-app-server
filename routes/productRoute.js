@@ -32,7 +32,14 @@ router
   .route("/reject/:id")
   .patch(restrictTo("admin"), aliasRejectProduct, updateProduct);
 
-router.route("/").post(uploadProductImage, resizeProductImage, createProduct);
+router
+  .route("/")
+  .post(
+    restrictTo("user"),
+    uploadProductImage,
+    resizeProductImage,
+    createProduct
+  );
 
 router
   .route("/:id")
