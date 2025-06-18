@@ -4,12 +4,23 @@ import multer from "multer";
 import sharp from "sharp";
 
 import Product from "./../model/productModel.js";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 import { PDFDocument } from "pdf-lib";
 import { differenceInDays } from "date-fns";
 
 import ApiFeatures from "./../utils/apiFeatures.js";
 import AppError from "./../utils/AppError.js";
+
+const s3 = new S3Client({
+  region: "auto",
+  endpoint: process.env.R2_ENDPOINT,
+  credentials: {
+    accessKeyId: process.env.R2_ACCESS_KEY_ID,
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+  },
+  maxAttempts: 3,
+});
 
 const multerStorage = multer.memoryStorage();
 
@@ -51,11 +62,25 @@ export const resizeProductImage = async (req, res, next) => {
     // 1. PROCESS AND SAVE COVER IMAGE
     if (req.files.coverImage) {
       req.body.coverImage = `product-cover-${Math.random()}-${Date.now()}.jpeg`;
-      await sharp(req.files.coverImage.at(0).buffer)
+
+      const outputBuffer = await sharp(req.files.coverImage.at(0).buffer)
         .resize(800, 600)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
-        .toFile(`public/images/products/${req.body.coverImage}`);
+        .toBuffer();
+      // .toFile(`public/images/products/${req.body.coverImage}`);
+
+      const fileName = req.body.coverImage;
+
+      const command = new PutObjectCommand({
+        Bucket: process.env.R2_BUCKET_NAME,
+        Key: fileName,
+        Body: outputBuffer,
+        ContentType: "image/jpeg",
+        ACL: "public-read",
+      });
+
+      await s3.send(command);
     }
     // 2. PROCESS AND SAVE OTHER IMAGES
     req.body.otherImages = [];
@@ -65,11 +90,21 @@ export const resizeProductImage = async (req, res, next) => {
           const fileName = `product-${
             i + 1
           }-${Math.random()}-${Date.now()}.jpeg`;
-          await sharp(file.buffer)
+          const outputBuffer = await sharp(file.buffer)
             .resize(800, 600)
             .toFormat("jpeg")
             .jpeg({ quality: 90 })
-            .toFile(`public/images/products/${fileName}`);
+            .toBuffer();
+          // .toFile(`public/images/products/${fileName}`);
+          const command = new PutObjectCommand({
+            Bucket: process.env.R2_BUCKET_NAME,
+            Key: fileName,
+            Body: outputBuffer,
+            ContentType: "image/jpeg",
+            ACL: "public-read",
+          });
+          await s3.send(command);
+
           req.body.otherImages.push(fileName);
         })
       );
@@ -78,12 +113,25 @@ export const resizeProductImage = async (req, res, next) => {
     if (!req.files.legalDocument) return next();
 
     req.body.legalDocument = `legal-document-${Math.random()}-${Date.now()}.pdf`;
-    const filePath = path.join("./public", "documents", req.body.legalDocument);
+
+    // const filePath = path.join("./public", "documents", req.body.legalDocument);
 
     const existingPdfBytes = req.files.legalDocument.at(0).buffer;
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
     const pdfBytes = await pdfDoc.save();
-    fs.writeFileSync(filePath, pdfBytes);
+    // fs.writeFileSync(filePath, pdfBytes);
+
+    const pdf_fileName = req.body.legalDocument;
+
+    const command = new PutObjectCommand({
+      Bucket: process.env.R2_BUCKET_NAME,
+      Key: pdf_fileName,
+      Body: pdfBytes,
+      ContentType: "application/pdf",
+      ACL: "public-read",
+    });
+
+    await s3.send(command);
 
     next();
   } catch (err) {

@@ -5,6 +5,18 @@ import User from "./../model/userModel.js";
 import Product from "./../model/productModel.js";
 import AppError from "./../utils/AppError.js";
 
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+
+const s3 = new S3Client({
+  region: "auto",
+  endpoint: process.env.R2_ENDPOINT,
+  credentials: {
+    accessKeyId: process.env.R2_ACCESS_KEY_ID,
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+  },
+  maxAttempts: 3,
+});
+
 // Store image in a memory
 const multerStorage = multer.memoryStorage();
 
@@ -26,12 +38,50 @@ export const resizeUserPhoto = async (req, res, next) => {
   try {
     if (!req.file) return next();
 
+    //     const outputBuffer = await sharp(inputBuffer)
+    //   .rotate(rotation)
+    //   .extract({
+    //     left: Math.round(crop.x),
+    //     top: Math.round(crop.y),
+    //     width: Math.round(crop.width),
+    //     height: Math.round(crop.height),
+    //   })
+    //   .resize(300, 300)
+    //   .jpeg({ quality: 80 })
+    //   .toBuffer();
+
+    // const fileName = `profile/${resumeId}-${Date.now()}-profile.jpeg`;
+
+    // const command = new PutObjectCommand({
+    //   Bucket: process.env.R2_BUCKET_NAME,
+    //   Key: fileName,
+    //   Body: outputBuffer,
+    //   ContentType: file.type,
+    //   ACL: "public-read",
+    // });
+
+    // await s3.send(command);
+
     req.body.photo = `user-${Math.random()}-${Date.now()}.jpeg`;
-    await sharp(req.file.buffer)
+
+    const outputBuffer = await sharp(req.file.buffer)
       .resize(180, 180)
       .toFormat("jpeg")
       .jpeg({ quality: 90 })
-      .toFile(`public/images/users/${req.body.photo}`);
+      .toBuffer();
+    // .toFile(`public/images/users/${req.body.photo}`);
+
+    const fileName = req.body.photo;
+
+    const command = new PutObjectCommand({
+      Bucket: process.env.R2_BUCKET_NAME,
+      Key: fileName,
+      Body: outputBuffer,
+      ContentType: "image/jpeg",
+      ACL: "public-read",
+    });
+
+    await s3.send(command);
 
     next();
   } catch (err) {
@@ -102,7 +152,6 @@ export const getUser = async (req, res, next) => {
     if (!userId) return next(new AppError("no user id", 404));
     // 2. get the current user and update
     const user = await User.findById(userId).select("fullName photo");
-
 
     // 3. send responce
     res.status(200).json({
